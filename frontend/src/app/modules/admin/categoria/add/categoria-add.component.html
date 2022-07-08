@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-body">
+    <h2 class="text-center">Nova categoria</h2>
+    <form (submit)="onSubmit()" [formGroup]="form" class="mt-4 d-flex flex-column gap-3 needs-validation">
+      <div>
+        <label for="nome" class="form-label">Nome:</label>
+        <div class="input-group has-validation">
+          <input formControlName="nome" placeholder="Nome da categoria"
+            [ngClass]="form.controls['nome'].touched && form.controls['nome'].invalid ?'is-invalid':'' " type=" text"
+            name="nome" id="nome" class="form-control" required>
+          <div class="invalid-feedback">
+            Insira um nome válido com no minimo 3 caracteres
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="slug" class="form-label">Slug:</label>
+        <input formControlName="slug" placeholder="Slug da categoria"
+          [ngClass]="form.controls['slug'].touched && form.controls['slug'].invalid ?'is-invalid':'' " type="text"
+          name="slug" id="slug" class="form-control">
+        <div class="invalid-feedback">
+          Insira um slug válido com no minimo 3 caracteres
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-1"
+        [disabled]="form.invalid || isAdding || !this.form.touched">
+        <ng-container *ngIf="!isAdding else loading">
+          Adicionar
+        </ng-container>
+        <ng-template #loading>
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Carregando...</span>
+          </div>
+        </ng-template>
+      </button>
+    </form>
+  </div>
+</div>
