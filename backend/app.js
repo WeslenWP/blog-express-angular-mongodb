@@ -6,8 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-
-const categoriaRoute = require('./routes/categoria');
+const categoriaRoute = require('./routes/admin/categoria');
 /* Configurações */
 
 // Cors
@@ -38,8 +37,8 @@ mongoose.connect('mongodb://localhost/blogapp')
   .catch((err) => console.log('Erro: \n' + err))
 
 // Rotas
-// app.use('/admin', admin);
-categoriaRoute(app);
+app.use('/api/categoria', categoriaRoute);
+
 
 // Outros
 const PORT = 8081;
