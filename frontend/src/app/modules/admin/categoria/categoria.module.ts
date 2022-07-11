@@ -1,14 +1,14 @@
 import { CategoriaEditComponent } from './edit/categoria-edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListCategoriasComponent } from './list/list-categorias.component';
+import { ListCategoriaComponent } from './list/list-categoria.component';
 import { CategoriaAddComponent } from './add/categoria-add.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-const categoriasRoutes: Routes = [
+const categoriaRoutes: Routes = [
   {
     path: '',
-    component: ListCategoriasComponent
+    component: ListCategoriaComponent
   },
   {
     path: 'add',
@@ -23,13 +23,13 @@ const categoriasRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    ListCategoriasComponent,
+    ListCategoriaComponent,
     CategoriaAddComponent, 
     CategoriaEditComponent
   ],
   imports: [
     SharedModule,
-    RouterModule.forChild(categoriasRoutes)
+    RouterModule.forChild(categoriaRoutes)
   ],
   providers: []
 
