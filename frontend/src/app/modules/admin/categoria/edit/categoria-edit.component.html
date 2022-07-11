@@ -24,7 +24,7 @@
         </div>
       </div>
       <button type="submit" class="btn btn-primary mt-1"
-        [disabled]="form.invalid || isChanging|| this.form.pristine">
+        [disabled]="form.invalid || isChanging || (this.form.controls['nome'].pristine && this.form.controls['slug'].pristine)">
         <ng-container *ngIf="!isChanging else loading">
           Salvar
         </ng-container>
