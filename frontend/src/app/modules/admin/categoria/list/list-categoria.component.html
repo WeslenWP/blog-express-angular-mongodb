@@ -1,6 +1,9 @@
-<h1>Lista de categorias:</h1>
+<div class="d-flex fs-1 align-items-center justify-content-sm-between justify-content-around px-sm-1">
+  <h1 class="fs-1">Lista de categorias</h1>
+  <a class="btn btn-primary btn-md" routerLink="./add" role="button"> Nova categoria </a>
+</div>
+
 <hr>
-<a class="btn btn-primary btn-md" routerLink="./add" role="button"> Nova categoria </a>
 
 <ng-container *ngIf="categorias && categorias.length else erro">
   <div class="card mt-4" *ngFor="let categoria of categorias">
