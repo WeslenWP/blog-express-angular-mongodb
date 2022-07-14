@@ -10,6 +10,13 @@ const errorMessage = {
   "500": { message: 'Houve um erro interno' }
 }
 
+// Endpoint para deletar tudo
+router.delete('/all', (req, res) => {
+  require('../../models/Postagem');
+  const Postagem = mongoose.model('postagens');
+  Categoria.deleteMany().then((_) => Postagem.deleteMany().then(() => res.status(200).send('Apagado')));
+});
+
 
 router.get('/', (req, res) => {
   Categoria.find().sort({ data: 'desc' })
@@ -71,15 +78,14 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  Categoria.remove({ _id: req.params.id })
-    .then((_) => res.status(200).send())
-    .catch((_) => res.status(500).send())
+  require('../../models/Postagem');
+  const Postagem = mongoose.model('postagens');
+
+  Postagem.deleteMany({ categoria: req.params.id }).then(
+    () => Categoria.findByIdAndRemove(req.params.id)
+      .then((categoria) => categoria ? res.status(200).send({ message: `A categoria <b>${categoria.nome}</b> foi removida com sucesso` }) : res.status(404).send(errorMessage[404]))
+      .catch((_) => res.status(404).send(errorMessage[404]))
+  ).catch((_) => res.status(500).send(errorMessage[500]))
 })
-
-// Endpoint para deletar tudo
-router.delete('/api/categoria/all', (req, res) => {
-  Categoria.deleteMany().then(() => res.status(200).send('Apagado'));
-});
-
 
 module.exports = router

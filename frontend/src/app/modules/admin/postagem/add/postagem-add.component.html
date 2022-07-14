@@ -1,0 +1,86 @@
+<div class="card">
+  <div class="card-body">
+    <h2 class="text-center">Nova postagem</h2>
+    <form (submit)="onSubmit()" [formGroup]="form" class="mt-4 d-flex flex-column gap-4">
+
+
+      <div class="form-floating">
+        <input formControlName="titulo" placeholder="nome"
+          [ngClass]="form.controls['titulo'].touched && form.controls['titulo'].invalid ?'is-invalid':'' " type="text"
+          name="titulo" id="titulo" class="form-control" required>
+        <label for="titulo" class="form-label">Titulo:</label>
+
+        <div class="invalid-feedback">
+          Insira um titulo com no minimo 4 caracteres
+        </div>
+      </div>
+
+      <div class="form-floating">
+        <input formControlName="slug" placeholder="slug"
+          [ngClass]="form.controls['slug'].touched && form.controls['slug'].invalid ?'is-invalid':'' " type="text"
+          name="slug" id="slug" class="form-control" required>
+        <label for="slug" class="form-label">Slug:</label>
+
+        <div class="invalid-feedback">
+          Insira um slug com no minimo 4 caracteres
+        </div>
+      </div>
+
+      <div class="form-floating">
+        <input formControlName="descricao" placeholder="descricao"
+          [ngClass]="form.controls['descricao'].touched && form.controls['descricao'].invalid ?'is-invalid':'' "
+          type="text" name="descricao" id="descricao" class="form-control" required>
+        <label for="descricao" class="form-label">Descrição:</label>
+
+        <div class="invalid-feedback">
+          Insira uma descrição válida
+        </div>
+      </div>
+
+      <div class="form-floating">
+        <textarea formControlName="conteudo" placeholder="conteudo"
+          [ngClass]="form.controls['conteudo'].touched && form.controls['conteudo'].invalid ?'is-invalid':'' "
+          type="text" name="conteudo" id="conteudo" class="form-control" style="height: 100px;" required
+          [maxlength]="255"></textarea>
+        <label for="conteudo" class="form-label">Conteúdo:</label>
+
+        <div class="invalid-feedback">
+          Insira um conteudo válido
+        </div>
+      </div>
+
+      <div>
+        <label for="categoria" class="form-label">Categoria:</label>
+          <ng-container *ngIf="categorias && categorias.length else semCategorias">
+            <div class="input-group gap-1">
+              <select formControlName="categoria"
+                [ngClass]="form.controls['categoria'].touched && (form.controls['categoria'].invalid) ?'is-invalid':'' "
+                class="form-select" name="categoria" id="categoria">
+                <option value="" disabled selected>Escolha uma categoria</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.nome}}</option>
+              </select>
+            </div>
+          </ng-container>
+
+
+          <ng-template #semCategorias>
+            <br><span class="">Não há categorias cadastradas,
+              <a class="reset" type="button" (click)="toAddCategoria()">adicionar nova?</a></span>
+          </ng-template>
+      </div>
+
+
+      <button type="submit" class="btn btn-lg btn-primary mt-1"
+        [disabled]="form.invalid || isAdding || form.pristine">
+        <ng-container *ngIf="!isAdding else loading">
+          Postar
+        </ng-container>
+        <ng-template #loading>
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Carregando...</span>
+          </div>
+        </ng-template>
+      </button>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const categoriaRoute = require('./routes/admin/categoria');
+const postagemRoute = require('./routes/admin/postagem');
 /* Configurações */
 
 // Cors
@@ -38,6 +39,7 @@ mongoose.connect('mongodb://localhost/blogapp')
 
 // Rotas
 app.use('/api/categoria', categoriaRoute);
+app.use('/api/postagem', postagemRoute);
 
 
 // Outros
