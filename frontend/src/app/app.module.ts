@@ -4,21 +4,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/layout/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
-import { NgToastModule } from 'ng-angular-popup';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastInterceptor } from './core/interceptors/toast.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgToastModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ToastInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
