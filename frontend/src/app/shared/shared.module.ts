@@ -7,11 +7,10 @@ const modules = [
 ]
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     modules
   ],
-  exports: [CommonModule, modules]
+  exports: [CommonModule, modules],
 })
 export class SharedModule { }
