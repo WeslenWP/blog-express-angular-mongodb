@@ -8,7 +8,7 @@ import { IAddCategoria } from '../types/categoria.types';
   providedIn: 'root'
 })
 export class CategoriaService {
-  private url: string = `${environment.urlServer}/api/categoria`;
+  private url: string = `${environment.urlServer}/categoria`;
 
   constructor(private _http: HttpClient) { }
 
