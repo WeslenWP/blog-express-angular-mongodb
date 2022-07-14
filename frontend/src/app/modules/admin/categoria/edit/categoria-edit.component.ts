@@ -47,14 +47,14 @@ export class CategoriaEditComponent implements OnInit {
     if (this.isChanging) this._categoriaService.editCategoria(this.form.value, this.id)
       .subscribe(
         {
-          next: (_) => this._router.navigateByUrl('/categorias'),
+          next: (_) => this._router.navigateByUrl('/admin/categorias'),
           error: (err) => {
             switch (err.status) {
               case 422:
                 Object.keys(err.error).forEach((key: any) => this.form.controls[key].setErrors(err.error[key]));
                 break;
               case 500:
-                this._router.navigateByUrl('/categorias');
+                this._router.navigateByUrl('/admin/categorias');
                 break;
             }
           },

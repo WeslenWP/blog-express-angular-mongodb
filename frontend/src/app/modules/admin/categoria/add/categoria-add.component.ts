@@ -33,7 +33,7 @@ export class CategoriaAddComponent implements OnInit, OnDestroy {
     if (this.isAdding) this._categoriaService.addCategoria(this.form.value)
       .subscribe(
         {
-          next: (_) => this._router.navigateByUrl(!!sessionStorage.getItem('CategoriaForm') ? '/postagens/add' : '/categorias'),
+          next: (_) => this._router.navigateByUrl(!!sessionStorage.getItem('CategoriaForm') ? '/admin/postagens/add' : '/admin/categorias'),
           error: (err) => Object.keys(err.error).forEach((key: any) => this.form.controls[key].setErrors(err.error[key])),
           complete: () => this.isAdding = false
         }

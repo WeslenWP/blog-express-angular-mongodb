@@ -38,7 +38,7 @@ export class PostagemAddComponent implements OnInit {
     this.isAdding = true;
     if (this.isAdding) {
       this._postagemService.addPostagem(this.form.value).subscribe({
-        next: () => this._router.navigateByUrl('/postagens'),
+        next: () => this._router.navigateByUrl('/admin/postagens'),
         error: (err) => Object.keys(err.error).forEach((key: any) => this.form.controls[key].setErrors(err.error[key])),
         complete: () => this.isAdding = false
       })
@@ -47,7 +47,7 @@ export class PostagemAddComponent implements OnInit {
 
   toAddCategoria() {
     sessionStorage.setItem('CategoriaForm', JSON.stringify(this.form.value));
-    this._router.navigateByUrl('/categorias/add');
+    this._router.navigateByUrl('/admin/categorias/add');
   }
 
 }

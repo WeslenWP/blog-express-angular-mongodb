@@ -68,7 +68,7 @@ export class PostagemEditComponent implements OnInit {
             Object.keys(err.error).forEach((key: any) => this.form.controls[key].setErrors(err.error[key]));
             break;
           case 500:
-            this._router.navigateByUrl('/postagens');
+            this._router.navigateByUrl('/admin/postagens');
             break;
         }
       }
@@ -83,7 +83,7 @@ export class PostagemEditComponent implements OnInit {
         .subscribe(
           {
             next: () => {
-              this._router.navigateByUrl('/postagens');
+              this._router.navigateByUrl('/admin/postagens');
             },
             error: (err) => {
               switch (err) {
@@ -91,7 +91,7 @@ export class PostagemEditComponent implements OnInit {
                   Object.keys(err.error).forEach((key: any) => this.form.controls[key].setErrors(err.error[key]));
                   break;
                 case 500:
-                  this._router.navigateByUrl('/postagens');
+                  this._router.navigateByUrl('/admin/postagens');
                   break;
               }
             },
