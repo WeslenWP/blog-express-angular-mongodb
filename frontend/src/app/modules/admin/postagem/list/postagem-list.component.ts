@@ -20,7 +20,7 @@ export class PostagemListComponent implements OnInit {
   delPostagem(id: string, titulo: string) {
     Swal.fire({
       customClass: {
-        confirmButton: 'btn btn-primary mx-1 fs-5',
+        confirmButton: 'btn btn-success mx-1 fs-5',
         cancelButton: 'btn btn-danger mx-1 fs-5'
       },
       buttonsStyling: false,
