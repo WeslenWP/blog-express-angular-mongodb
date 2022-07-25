@@ -4,14 +4,15 @@ const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
-const flash = require('connect-flash');
+const fs = require('fs')
 
 const categoriaRoute = require('./routes/admin/categoria');
 const postagemRoute = require('./routes/admin/postagem');
 /* Configurações */
-
 // Cors
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 
 // Sessão
 app.use(session({
@@ -19,12 +20,9 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-app.use(flash());
 
 // Middleware
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
   next();
 });
 
