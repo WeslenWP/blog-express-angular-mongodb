@@ -22,7 +22,6 @@ export class PostagemAddComponent implements OnInit {
     private _router: Router) {
     this.form = this._formBuilder.group({
       titulo: ['', [Validators.required, Validators.minLength(4)]],
-      slug: ['', [Validators.required, Validators.minLength(4)]],
       descricao: ['', [Validators.required, Validators.minLength(4)]],
       conteudo: ['', [Validators.required, Validators.maxLength(255)]],
       categoria: ['', [Validators.required]]

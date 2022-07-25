@@ -11,9 +11,7 @@ import { IPostagem } from 'src/app/core/types/postagem.types';
   templateUrl: './postagem-edit.component.html'
 })
 export class PostagemEditComponent implements OnInit {
-
   private id: string;
-  private tempTitulo!: string;
 
   categorias!: ICategoria[];
   currentCategoria!: ICategoria;
@@ -32,7 +30,6 @@ export class PostagemEditComponent implements OnInit {
 
     this.form = this._formBuilder.group({
       titulo: ['', [Validators.required, Validators.minLength(4)]],
-      slug: ['', [Validators.required, Validators.minLength(4)]],
       descricao: ['', [Validators.required, Validators.minLength(4)]],
       conteudo: ['', [Validators.required, Validators.maxLength(255)]],
       categoria: ['', [Validators.required]]

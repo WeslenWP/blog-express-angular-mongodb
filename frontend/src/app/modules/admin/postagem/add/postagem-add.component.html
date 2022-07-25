@@ -16,17 +16,6 @@
       </div>
 
       <div class="form-floating">
-        <input formControlName="slug" placeholder="slug"
-          [ngClass]="form.controls['slug'].touched && form.controls['slug'].invalid ?'is-invalid':'' " type="text"
-          name="slug" id="slug" class="form-control" required>
-        <label for="slug" class="form-label">Slug:</label>
-
-        <div class="invalid-feedback">
-          Insira um slug com no minimo 4 caracteres
-        </div>
-      </div>
-
-      <div class="form-floating">
         <input formControlName="descricao" placeholder="descricao"
           [ngClass]="form.controls['descricao'].touched && form.controls['descricao'].invalid ?'is-invalid':'' "
           type="text" name="descricao" id="descricao" class="form-control" required>
