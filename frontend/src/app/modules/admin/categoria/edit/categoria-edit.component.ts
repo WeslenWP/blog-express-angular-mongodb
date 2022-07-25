@@ -22,7 +22,6 @@ export class CategoriaEditComponent implements OnInit {
     this.id = this._activatedRoute.snapshot.params['id'];
     this.form = this._formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(4)]],
-      slug: ['', [Validators.required, Validators.minLength(4)]]
     });
     this.form.disable();
   }

@@ -18,7 +18,6 @@ export class CategoriaAddComponent implements OnInit, OnDestroy {
   ) {
     this.form = this._formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(4)]],
-      slug: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 

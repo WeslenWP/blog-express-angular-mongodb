@@ -7,6 +7,7 @@ const Postagem = mongoose.model('postagens');
 
 const errorMessage = {
   "404": { message: 'Postagem não existe' },
+  "409": { message: "Já existe uma postagem com esse titulo" },
   "500": { message: 'Houve um erro interno' }
 }
 
@@ -15,21 +16,12 @@ router.delete('/all', (req, res) => {
   Postagem.deleteMany().then((_) => res.status(200).send('Apagado'));
 });
 
-router.get('/', (req, res) => {
-  Postagem.find().populate('categoria').sort({ data: 'desc' })
-    .then((postagem) => res.status(200).send(postagem)
-    )
-    .catch((_) => res.status(404).send(errorMessage[404]));
-})
 
 router.post('/', (req, res) => {
   let errors = new Object();
 
   if (!req.body.titulo || req.body.titulo.length < 4)
     errors.titulo = { invalid: true };
-
-  if (!req.body.slug || req.body.slug.length < 3)
-    errors.slug = { invalid: true };
 
   if (!req.body.descricao || req.body.descricao.length < 4)
     errors.descricao = { invalid: true };
@@ -50,9 +42,11 @@ router.post('/', (req, res) => {
       if (Object.keys(errors).length) {
         res.status(422).send(errors)
       } else {
+        const slug = req.body.titulo.trim().toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
         const queryPostagem = {
           titulo: req.body.titulo,
-          slug: req.body.slug,
+          slug: slug,
           descricao: req.body.descricao,
           conteudo: req.body.conteudo,
           categoria: req.body.categoria
@@ -60,7 +54,16 @@ router.post('/', (req, res) => {
 
         Postagem.create(queryPostagem)
           .then(() => res.status(201).send({ message: `<b>${queryPostagem.titulo}</b> foi postado` }))
-          .catch(() => res.status(404).send(errorMessage[404]));
+          .catch((err) => {
+            switch (err.code) {
+              case 11000:
+                res.status(409).send(errorMessage[409])
+                break;
+              default:
+                res.status(500).send(errorMessage[500])
+                break;
+            }
+          });
       }
     })
     .catch(() => {
@@ -70,9 +73,9 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  Postagem.findById(req.params.id).populate('categoria')
+  Postagem.findOne({ _id: req.params.id }).populate('categoria')
     .then((postagem) => postagem ? res.status(200).send(postagem) : res.status(404).send(errorMessage[404]))
-    .catch(() => res.status(404).send(errorMessage[404]));
+    .catch(() => res.status(500).send(errorMessage[500]));
 })
 
 router.put('/:id', (req, res) => {
@@ -80,9 +83,6 @@ router.put('/:id', (req, res) => {
 
   if (!req.body.titulo || req.body.titulo.length < 4)
     errors.titulo = { invalid: true };
-
-  if (!req.body.slug || req.body.slug.length < 3)
-    errors.slug = { invalid: true };
 
   if (!req.body.descricao || req.body.descricao.length < 4)
     errors.descricao = { invalid: true };
@@ -97,18 +97,33 @@ router.put('/:id', (req, res) => {
   const Categoria = mongoose.model('categorias')
   Categoria.findById(req.body.categoria)
     .then((data) => {
-      if (!data) {
-        errors.categoria = { invalid: true };
+      if (!data) errors.categoria = { invalid: true };
+
+      if (Object.keys(errors).length) {
         return res.status(422).send(errors)
+      } else {
+        const slug = req.body.titulo.trim().toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        const queryPostagem = {
+          titulo: req.body.titulo,
+          slug: slug,
+          descricao: req.body.descricao,
+          conteudo: req.body.conteudo,
+          categoria: req.body.categoria
+        }
+        Postagem.findByIdAndUpdate(req.params.id, queryPostagem)
+          .then((postagem) => postagem ? res.status(200).send({ message: `O post <b>${postagem.titulo}</b> foi editado com sucesso` }) : res.status(404).send(errorMessage[404]))
+          .catch((err) => {
+            switch (err.code) {
+              case 11000:
+                res.status(409).send(errorMessage[409])
+                break;
+              default:
+                res.status(500).send(errorMessage[500])
+                break;
+            }
+          });
       }
-
-      if (Object.keys(errors).length)
-        return res.status(422).send(errors);
-
-      Postagem.findByIdAndUpdate(req.params.id, req.body)
-        .then((postagem) => postagem ? res.status(200).send({ message: `O post <b>${postagem.titulo}</b> foi editado com sucesso` }) : res.status(404).send(errorMessage[404]))
-        .catch((_) => res.status(404).send(errorMessage[404]))
-
     })
     .catch(() => {
       errors.categoria = { invalid: true };

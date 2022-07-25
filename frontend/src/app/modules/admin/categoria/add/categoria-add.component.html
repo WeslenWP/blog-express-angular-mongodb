@@ -14,18 +14,6 @@
         </div>
       </div>
 
-
-      <div class="form-floating">
-        <input formControlName="slug" placeholder="Slug da categoria"
-          [ngClass]="form.controls['slug'].touched && form.controls['slug'].invalid ?'is-invalid':'' " type="text"
-          name="slug" id="slug" class="form-control">
-        <label for="slug" class="form-label">Slug:</label>
-
-        <div class="invalid-feedback">
-          Insira um slug válido com no minimo 4caracteres
-        </div>
-      </div>
-
       <button type="submit" class="btn btn-lg btn-primary mt-1" [disabled]="form.invalid || isAdding || form.pristine">
         <ng-container *ngIf="!isAdding else loading">
           Adicionar

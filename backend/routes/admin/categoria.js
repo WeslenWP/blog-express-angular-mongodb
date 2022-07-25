@@ -7,6 +7,7 @@ const Categoria = mongoose.model('categorias');
 
 const errorMessage = {
   "404": { message: 'Categoria não existe' },
+  "409": { message: "Já existe uma categoria com esse nome" },
   "500": { message: 'Houve um erro interno' }
 }
 
@@ -16,7 +17,6 @@ router.delete('/all', (req, res) => {
   const Postagem = mongoose.model('postagens');
   Categoria.deleteMany().then((_) => Postagem.deleteMany().then(() => res.status(200).send('Apagado')));
 });
-
 
 router.get('/', (req, res) => {
   Categoria.find().sort({ data: 'desc' })
@@ -30,20 +30,28 @@ router.post('/', (req, res) => {
   if (!req.body.nome || req.body.nome.length < 4)
     errors.nome = { invalid: true };
 
-  if (!req.body.slug || req.body.slug.length < 4)
-    errors.slug = { invalid: true };
-
   if (Object.keys(errors).length) {
     res.status(422).send(errors)
   } else {
+    const slug = req.body.nome.trim().toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     const queryCategoria = {
       nome: req.body.nome,
-      slug: req.body.slug
+      slug: slug
     }
 
     Categoria.create(queryCategoria)
       .then(() => res.status(201).send({ message: `A categoria <b>${queryCategoria.nome}</b> foi criada com sucesso` }))
-      .catch((_) => res.status(500).send(errorMessage[500]));
+      .catch((err) => {
+        switch (err.code) {
+          case 11000:
+            res.status(409).send(errorMessage[409])
+            break;
+          default:
+            res.status(500).send(errorMessage[500])
+            break;
+        }
+      });
   }
 })
 
@@ -58,14 +66,15 @@ router.put('/:id', (req, res) => {
 
   if (!req.body.nome || req.body.nome.length < 4) errors.nome = { invalid: true };
 
-  if (!req.body.slug || req.body.slug.length < 4) errors.slug = { invalid: true };
 
   if (Object.keys(errors).length) {
     res.status(422).send(errors)
   } else {
+    const slug = req.body.nome.trim().toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     const queryCategoria = {
       nome: req.body.nome,
-      slug: req.body.slug
+      slug: slug
     }
 
     Categoria.findByIdAndUpdate(req.params.id, queryCategoria)
@@ -73,7 +82,16 @@ router.put('/:id', (req, res) => {
         categoria
           ? res.status(201).send({ message: `A categoria <b>${categoria.nome}</b> foi atualizada com sucesso` })
           : res.status(404).send(errorMessage[404]))
-      .catch((_) => res.status(500).send(errorMessage[500]))
+      .catch((err) => {
+        switch (err.code) {
+          case 11000:
+            res.status(409).send(errorMessage[409])
+            break;
+          default:
+            res.status(500).send(errorMessage[500])
+            break;
+        }
+      });
   }
 })
 
