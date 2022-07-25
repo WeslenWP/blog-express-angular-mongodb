@@ -132,9 +132,9 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  Postagem.findOneAndDelete(req.params.id)
+  Postagem.findByIdAndDelete(req.params.id)
     .then((postagem) => postagem ? res.status(200).send({ message: `O post <b>${postagem.titulo}</b> foi excluido com sucesso` }) : res.status(404).send(errorMessage[404]))
-    .catch((_) => res.status(404).send(errorMessage[404]))
+    .catch((_) => res.status(500).send(errorMessage[500]))
 })
 
 module.exports = router

@@ -100,7 +100,7 @@ router.delete('/:id', (req, res) => {
   const Postagem = mongoose.model('postagens');
 
   Postagem.deleteMany({ categoria: req.params.id }).then(
-    () => Categoria.findByIdAndRemove(req.params.id)
+    () => Categoria.findByIdAndDelete(req.params.id)
       .then((categoria) => categoria ? res.status(200).send({ message: `A categoria <b>${categoria.nome}</b> foi removida com sucesso` }) : res.status(404).send(errorMessage[404]))
       .catch((_) => res.status(404).send(errorMessage[404]))
   ).catch((_) => res.status(500).send(errorMessage[500]))
