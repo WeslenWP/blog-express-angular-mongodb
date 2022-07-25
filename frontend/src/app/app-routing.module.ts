@@ -6,17 +6,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    children: [
-      { path: '', pathMatch: 'full', redirectTo: 'postagens' },
-      {
-        path: 'categorias',
-        loadChildren: () => import('./modules/admin/categoria/categoria.module').then(m => m.CategoriaModule),
-      },
-      {
-        path: 'postagens',
-        loadChildren: () => import('./modules/admin/postagem/postagem.module').then(m => m.PostagemModule)
-      }
-    ]
+    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
   },
   { path: '**', redirectTo: '/' }
 ];
