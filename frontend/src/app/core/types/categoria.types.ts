@@ -7,5 +7,4 @@ export interface ICategoria {
 
 export interface IAddCategoria {
   nome: string,
-  slug: string
 }

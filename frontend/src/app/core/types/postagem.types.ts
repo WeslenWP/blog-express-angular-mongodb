@@ -12,7 +12,6 @@ export interface IPostagem {
 
 export interface IAddPostagem {
   titulo: string,
-  slug: string,
   descricao: string,
   conteudo: string,
   categoria: string

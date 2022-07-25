@@ -31,7 +31,6 @@ export class CategoriaEditComponent implements OnInit {
       {
         next: (categoria: IAddCategoria) => {
           this.form.controls['nome'].setValue(categoria.nome);
-          this.form.controls['slug'].setValue(categoria.slug);
           this.form.enable();
           this.form.markAsPristine();
         },

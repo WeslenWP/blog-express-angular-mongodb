@@ -40,11 +40,8 @@ export class PostagemEditComponent implements OnInit {
   ngOnInit(): void {
     this._postagemService.getDataById(this.id).subscribe({
       next: (postagem: IPostagem) => {
-        this.tempTitulo = postagem.titulo;
-
         this.form.setValue({
           titulo: postagem.titulo,
-          slug: postagem.slug,
           descricao: postagem.descricao,
           conteudo: postagem.conteudo,
           categoria: postagem.categoria._id
