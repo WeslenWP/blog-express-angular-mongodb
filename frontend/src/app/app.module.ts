@@ -3,16 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './core/layout/navbar/navbar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastInterceptor } from './core/interceptors/toast.interceptor';
 import { AdminLayoutComponent } from './core/layout/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './core/layout/user-layout/user-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     AdminLayoutComponent,
+    UserLayoutComponent,
   ],
   imports: [
     BrowserModule,

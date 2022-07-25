@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const fs = require('fs')
 
-const categoriaRoute = require('./routes/admin/categoria');
-const postagemRoute = require('./routes/admin/postagem');
 /* Configurações */
 // Cors
 app.use(cors({
@@ -35,9 +33,8 @@ mongoose.connect('mongodb://localhost/blogapp')
   .then(() => console.log('Banco conectado'))
   .catch((err) => console.log('Erro: \n' + err))
 
-// Rotas
-app.use('/api/categoria', categoriaRoute);
-app.use('/api/postagem', postagemRoute);
+app.use('/api/categoria', [require("./routes/admin/categoria"), require("./routes/user/categoria")]);
+app.use('/api/postagem', [require("./routes/admin/postagem"), require("./routes/user/postagem")]);
 
 
 // Outros

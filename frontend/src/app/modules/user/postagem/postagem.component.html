@@ -1,0 +1,9 @@
+<ng-container *ngIf="postagem">
+  <h1>{{postagem.titulo}} </h1>
+  <small>{{postagem.descricao}}</small>
+  <br>
+  <hr>
+  <p [innerText]="postagem.conteudo"></p>
+  <hr>
+  <small>Publicado em {{postagem.data | date:'dd/MM/yyyy' }} </small>
+</ng-container>

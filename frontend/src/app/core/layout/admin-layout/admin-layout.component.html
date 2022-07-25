@@ -1,4 +1,18 @@
-<app-navbar></app-navbar>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/admin">Blog <span class="text-success">Node.JS</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#defaultNavbar"
+      aria-controls="defaultNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="defaultNavbar">
+      <div class="navbar-nav">
+        <a routerLinkActive="active" routerLink="postagens" class="nav-link">Postagens</a>
+        <a routerLinkActive="active" routerLink="categorias" class="nav-link">Categorias</a>
+      </div>
+    </div>
+  </div>
+</nav>
 <div class="container mt-4">
   <router-outlet></router-outlet>
 </div>
