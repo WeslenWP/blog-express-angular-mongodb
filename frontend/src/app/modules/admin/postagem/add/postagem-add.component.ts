@@ -30,13 +30,13 @@ export class PostagemAddComponent implements OnInit {
 
   ngOnInit(): void {
     if (sessionStorage.getItem('CategoriaForm')) this.form.setValue(JSON.parse(sessionStorage.getItem('CategoriaForm') ?? ''));
-    this._categoriaService.getAllData().subscribe((categorias) => this.categorias = categorias);
+    this._categoriaService.getAllCategorias().subscribe((categorias) => this.categorias = categorias);
   }
 
   onSubmit(): void {
     this.isAdding = true;
     if (this.isAdding) {
-      this._postagemService.addPostagem(this.form.value).subscribe({
+      this._postagemService.addPost(this.form.value).subscribe({
         next: () => this._router.navigateByUrl('/admin/postagens'),
         error: (err) => Object.keys(err.error).forEach((key: any) => this.form.controls[key].setErrors(err.error[key])),
         complete: () => this.isAdding = false

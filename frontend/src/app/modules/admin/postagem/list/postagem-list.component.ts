@@ -14,7 +14,7 @@ export class PostagemListComponent implements OnInit {
   constructor(private _postagemService: PostagemService) { }
 
   ngOnInit(): void {
-    this._postagemService.getAllPostagens().subscribe((data) => this.postagens = data);
+    this._postagemService.getAllPosts().subscribe((data) => this.postagens = data);
   }
 
   delPostagem(id: string, titulo: string) {

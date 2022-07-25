@@ -38,7 +38,7 @@ export class PostagemEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._postagemService.getDataById(this.id).subscribe({
+    this._postagemService.getPostById(this.id).subscribe({
       next: (postagem: IPostagem) => {
         this.form.setValue({
           titulo: postagem.titulo,
@@ -52,7 +52,7 @@ export class PostagemEditComponent implements OnInit {
         this.form.markAsUntouched();
 
         // Categorias
-        this._categoriaService.getAllData().subscribe(
+        this._categoriaService.getAllCategorias().subscribe(
           (categorias) => this.categorias = categorias.filter((categoria: ICategoria) => categoria._id !== this.currentCategoria._id)
         )
       },
@@ -73,7 +73,7 @@ export class PostagemEditComponent implements OnInit {
   onSubmit() {
     if (!this.isChanging) {
       this.isChanging = true
-      this._postagemService.editPostagem(this.id, this.form.value)
+      this._postagemService.editPost(this.id, this.form.value)
         .subscribe(
           {
             next: () => {

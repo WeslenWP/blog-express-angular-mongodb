@@ -13,20 +13,24 @@ export class PostagemService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  addPostagem(data: IAddPostagem): Observable<any> {
+  addPost(data: IAddPostagem): Observable<any> {
     return this._httpClient.post(this.url, data);
   }
 
-  editPostagem(id: string, data: IAddPostagem): Observable<any> {
+  editPost(id: string, data: IAddPostagem): Observable<any> {
     return this._httpClient.put(`${this.url}/${id}`, data)
   }
 
-  getAllPostagens(): Observable<any> {
+  getAllPosts(): Observable<any> {
     return this._httpClient.get(this.url);
   }
 
-  getDataById(id: string): Observable<any> {
+  getPostById(id: string): Observable<any> {
     return this._httpClient.get(`${this.url}/${id}`);
+  }
+
+  getPostBySlug(slug: string): Observable<any> {
+    return this._httpClient.get(`${this.url}/bySlug/${slug}`)
   }
 
   delPostById(id: string): Observable<any> {

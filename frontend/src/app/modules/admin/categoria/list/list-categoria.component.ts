@@ -14,7 +14,7 @@ export class ListCategoriaComponent implements OnInit {
   constructor(private _categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
-    this._categoriaService.getAllData().subscribe((categorias) => this.categorias = categorias)
+    this._categoriaService.getAllCategorias().subscribe((categorias) => this.categorias = categorias)
   }
 
   delCategoria(id: string, nome: string) {

@@ -10,26 +10,25 @@ import { IAddCategoria } from '../types/categoria.types';
 export class CategoriaService {
   private url: string = `${environment.urlServer}/categoria`;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _httpClient: HttpClient) { }
 
   addCategoria(data: IAddCategoria): Observable<any> {
-    return this._http.post(this.url, data);
+    return this._httpClient.post(this.url, data);
   }
 
-  getAllData(): Observable<any> {
-    return this._http.get(this.url);
+  getAllCategorias(): Observable<any> {
+    return this._httpClient.get(this.url);
   }
 
-  getDataById(id: string): Observable<any> {
-    return this._http.get(`${this.url}/${id}`)
+  getCategoriaById(id: string): Observable<any> {
+    return this._httpClient.get(`${this.url}/${id}`)
   }
 
   editCategoria(data: IAddCategoria, id: string): Observable<any> {
-    return this._http.put(`${this.url}/${id}`, data)
+    return this._httpClient.put(`${this.url}/${id}`, data)
   }
 
-  deleteCategoriaById(id: string): Observable<any> { 
-    return this._http.delete(`${this.url}/${id}`)
+  deleteCategoriaById(id: string): Observable<any> {
+    return this._httpClient.delete(`${this.url}/${id}`)
   }
-
 }

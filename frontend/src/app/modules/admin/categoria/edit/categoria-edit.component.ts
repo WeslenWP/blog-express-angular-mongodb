@@ -27,7 +27,7 @@ export class CategoriaEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._categoriaService.getDataById(this.id).subscribe(
+    this._categoriaService.getCategoriaById(this.id).subscribe(
       {
         next: (categoria: IAddCategoria) => {
           this.form.controls['nome'].setValue(categoria.nome);
