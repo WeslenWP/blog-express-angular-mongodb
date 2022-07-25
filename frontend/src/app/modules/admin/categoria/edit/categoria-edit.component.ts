@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IAddCategoria } from 'src/app/core/types/categoria.types';
 import { CategoriaService } from 'src/app/core/services/categoria.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-categoria-form-edit',
@@ -18,7 +19,8 @@ export class CategoriaEditComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _categoriaService: CategoriaService,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute) {
+    private _activatedRoute: ActivatedRoute,
+    private title: Title) {
     this.id = this._activatedRoute.snapshot.params['id'];
     this.form = this._formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(4)]],
@@ -33,6 +35,7 @@ export class CategoriaEditComponent implements OnInit {
           this.form.controls['nome'].setValue(categoria.nome);
           this.form.enable();
           this.form.markAsPristine();
+          this.title.setTitle('Editando: ' + categoria.nome)
         },
         error: (err) => {
           if (err.status === 500) this._router.navigateByUrl('/');

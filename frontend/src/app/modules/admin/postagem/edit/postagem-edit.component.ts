@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaService } from 'src/app/core/services/categoria.service';
 import { PostagemService } from 'src/app/core/services/postagem.service';
@@ -24,8 +25,9 @@ export class PostagemEditComponent implements OnInit {
       private _router: Router,
       private _postagemService: PostagemService,
       private _categoriaService: CategoriaService,
+      private title: Title
 
-  ) {
+    ) {
     this.id = this._activatedRoute.snapshot.params['id'];
 
     this.form = this._formBuilder.group({
@@ -40,6 +42,8 @@ export class PostagemEditComponent implements OnInit {
   ngOnInit(): void {
     this._postagemService.getPostById(this.id).subscribe({
       next: (postagem: IPostagem) => {
+        this.title.setTitle(postagem.titulo)
+        
         this.form.setValue({
           titulo: postagem.titulo,
           descricao: postagem.descricao,
