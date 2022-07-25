@@ -5,10 +5,12 @@ const Categoria = new Schema({
   nome: {
     type: String,
     require: true,
+    unique: true
   },
   slug: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   data: {
     type: Date,

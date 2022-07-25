@@ -4,11 +4,13 @@ const Schema = mongoose.Schema;
 const Postagem = new Schema({
   titulo: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   slug: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   descricao: {
     type: String,
