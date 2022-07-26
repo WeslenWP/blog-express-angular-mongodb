@@ -20,8 +20,7 @@ router.get('/', (req, res) => {
 router.get('/bySlug/:slug', (req, res) => {
   Postagem.find({ slug: req.params.slug }).populate('categoria').sort({ data: 'desc' })
     .then((postagem) => {
-      if (postagem) {
-        // postagem[0].conteudo = postagem[0].conteudo.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, " <br> ")
+      if (postagem.length) {
         res.status(200).send(postagem[0])
       } else {
         res.status(404).send(errorMessage[404])
