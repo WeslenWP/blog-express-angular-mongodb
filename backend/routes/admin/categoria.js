@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
   if (Object.keys(errors).length) {
     res.status(422).send(errors)
   } else {
-    const slug = req.body.nome.trim().toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const slug = req.body.nome.trim().toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     const queryCategoria = {
       nome: req.body.nome,
@@ -70,7 +70,7 @@ router.put('/:id', (req, res) => {
   if (Object.keys(errors).length) {
     res.status(422).send(errors)
   } else {
-    const slug = req.body.nome.trim().toLowerCase().replace(' ', '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const slug = req.body.nome.trim().toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     const queryCategoria = {
       nome: req.body.nome,
