@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
   if (!req.body.descricao || req.body.descricao.length < 4)
     errors.descricao = { invalid: true };
 
-  if (!req.body.conteudo || req.body.conteudo.length < 1 || req.body.conteudo.length > 255)
+  if (!req.body.conteudo || req.body.conteudo.length < 1 || req.body.conteudo.length > 2000)
     errors.conteudo = { invalid: true };
 
   if (!req.body.categoria || req.body.categoria.length < 4)
@@ -87,7 +87,7 @@ router.put('/:id', (req, res) => {
   if (!req.body.descricao || req.body.descricao.length < 4)
     errors.descricao = { invalid: true };
 
-  if (!req.body.conteudo || req.body.conteudo.length < 1 || req.body.conteudo.length > 255)
+  if (!req.body.conteudo || req.body.conteudo.length < 1 || req.body.conteudo.length > 2000)
     errors.conteudo = { invalid: true };
 
   if (!req.body.categoria || req.body.categoria.length < 4)

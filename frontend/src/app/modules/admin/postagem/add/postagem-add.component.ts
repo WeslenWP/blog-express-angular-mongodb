@@ -23,7 +23,7 @@ export class PostagemAddComponent implements OnInit {
     this.form = this._formBuilder.group({
       titulo: ['', [Validators.required, Validators.minLength(4)]],
       descricao: ['', [Validators.required, Validators.minLength(4)]],
-      conteudo: ['', [Validators.required, Validators.maxLength(255)]],
+      conteudo: ['', [Validators.required, Validators.maxLength(2000)]],
       categoria: ['', [Validators.required]]
     });
   }
