@@ -102,7 +102,7 @@ router.put('/:id', (req, res) => {
       if (Object.keys(errors).length) {
         return res.status(422).send(errors)
       } else {
-        const slug = req.body.titulo.trim().toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const slug = req.body.titulo.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, '').replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
 
         const queryPostagem = {
           titulo: req.body.titulo,
