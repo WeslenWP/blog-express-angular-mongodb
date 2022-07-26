@@ -33,6 +33,10 @@ export class PostagemService {
     return this._httpClient.get(`${this.url}/bySlug/${slug}`)
   }
 
+  getPostsByCategoriaID(id: string): Observable<any> {
+    return this._httpClient.get(`${this.url}/byCategoria/${id}`)
+  }
+
   delPostById(id: string): Observable<any> {
     return this._httpClient.delete(`${this.url}/${id}`);
   }

@@ -30,5 +30,16 @@ router.get('/bySlug/:slug', (req, res) => {
     .catch((_) => res.status(500).send(errorMessage[500]));
 })
 
+router.get('/byCategoria/:id', (req, res) => {
+  Postagem.find({ categoria: req.params.id }).populate('categoria').sort({ data: 'desc' })
+    .then((postagem) => {
+      if (postagem) {
+        res.status(200).send(postagem)
+      } else {
+        res.status(404).send(errorMessage[404])
+      }
+    })
+    .catch((_) => { res.status(500).send(errorMessage[500]) });
+})
 
 module.exports = router
