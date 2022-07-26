@@ -30,7 +30,7 @@
         <textarea formControlName="conteudo" placeholder="conteudo"
           [ngClass]="form.controls['conteudo'].touched && form.controls['conteudo'].invalid ?'is-invalid':'' "
           type="text" name="conteudo" id="conteudo" class="form-control" style="height: 100px;" required
-          [maxlength]="255"></textarea>
+          [maxlength]="2000"></textarea>
         <label for="conteudo" class="form-label">Conteúdo:</label>
 
         <div class="invalid-feedback">
