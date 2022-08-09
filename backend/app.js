@@ -5,11 +5,12 @@ const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const fs = require('fs')
+require('dotenv').config();
 
 /* Configurações */
 // Cors
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: process.env.ORIGIN
 }));
 
 // Sessão
@@ -29,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Mongoose
-mongoose.connect('mongodb://localhost/blogapp')
+mongoose.connect(process.env.DB_URL)
   .then(() => console.log('Banco conectado'))
   .catch((err) => console.log('Erro: \n' + err))
 
@@ -38,5 +39,4 @@ app.use('/api/postagem', [require("./routes/admin/postagem"), require("./routes/
 
 
 // Outros
-const PORT = 8081;
-app.listen(PORT, () => console.log('Servidor rodando'));
+app.listen(process.env.PORT, () => console.log('Servidor rodando'));
