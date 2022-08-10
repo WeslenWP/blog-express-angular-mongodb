@@ -34,7 +34,7 @@ mongoose.connect(process.env.DB_URL)
   .then(() => console.log('Banco conectado'))
   .catch((err) => console.log('Erro: \n' + err))
 
-app.use('/api/categoria', [require("./routes/admin/categoria"), require("./routes/user/categoria")]);
+app.use('/api/categoria', [require("./routes/admin/categoria")]);
 app.use('/api/postagem', [require("./routes/admin/postagem"), require("./routes/user/postagem")]);
 
 
