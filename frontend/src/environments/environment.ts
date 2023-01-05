@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   urlServer: 'http://localhost:8081/api'
+  // urlServer: 'http://192.168.1.3:8081/api'
 };
 
 /*

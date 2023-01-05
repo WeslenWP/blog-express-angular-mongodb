@@ -1,0 +1,60 @@
+
+@URL = http://localhost:8081/api
+@email = admin@admin.com
+@senha = superadmin
+# @email= email@email.com
+# @senha= 123123
+
+# @name Login
+POST {{URL}}/user/auth
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "senha": "{{senha}}"
+}
+
+### Refresh  
+# @name Login
+POST {{URL}}/user/refresh
+Content-Type: application/json
+
+{
+  "accessToken": "{{authToken}}",
+  "refreshToken": "{{refreshToken}}"
+}
+
+###
+@authToken = {{Login.response.body.$.accessToken}}
+@refreshToken = {{Login.response.body.$.refreshToken}}
+
+###
+POST {{URL}}/user/register
+Content-Type: application/json
+
+{
+  "nome": "Wes",
+  "email": "email@email.com",
+  "senha": "123123"
+}
+
+###
+DELETE {{URL}}/user/delete
+
+###
+GET {{URL}}/postagem
+
+###
+POST {{URL}}/postagem
+Content-Type: application/json
+Authorization: BEARER {{authToken}}
+
+{
+    "titulo": "O Orkut vai mesmo voltar?",
+    "descricao": "Primeira rede social do mundo pode ser um refresco para o mundo digital, avalia Rejane Toigo, fundadora da Like Marketing",
+    "conteudo": "A primeira rede social do mundo, criada em 2004, teve mais de 300 milhões de seguidores pelo mundo e, no Brasil, foi um sucesso. Em pouco mais de dez anos, perdeu seu espaço para o iniciante Facebook. No fim de 2012, o Orkut minguava com 2% de usuários ativos contra 92,8% do Facebook. Seu fundador é um engenheiro russo que fez pós-graduação em Stanford, meca de startups e gênios da tecnologia, o Sr. Orkut Büyükkökten.\n\nDepois de vários anos no silêncio de algum laboratório de tecnologia, Büyükkökten promete voltar com sua rede, repaginada e mais conectada que antes. Segundo ele, sua invenção queria proporcionar às pessoas reais que conhecessem mais pessoas, compartilhando interesses reais.",
+    "categoria":  "62deb8c55bb413c81fbd90de"
+}
+
+###
+GET {{URL}}/auth/

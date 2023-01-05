@@ -12,7 +12,7 @@ const userRoutes: Routes = [
     data: { title: 'Home' }
   },
   {
-    path: 'postagem/:slug',
+    path: 'post/:slug',
     component: PostagemComponent,
   }
 ]

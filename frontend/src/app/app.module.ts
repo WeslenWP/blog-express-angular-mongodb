@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ToastInterceptor } from './core/interceptors/toast.interceptor';
+import { HttpClientModule } from '@angular/common/http';
 import { AdminLayoutComponent } from './core/layout/admin-layout/admin-layout.component';
 import { UserLayoutComponent } from './core/layout/user-layout/user-layout.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,9 @@ import { UserLayoutComponent } from './core/layout/user-layout/user-layout.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    CoreModule
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: ToastInterceptor, multi: true }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

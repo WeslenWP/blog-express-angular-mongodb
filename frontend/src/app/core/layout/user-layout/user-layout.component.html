@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">Blog <span class="text-success">Node.JS</span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#defaultNavbar"
@@ -8,10 +8,14 @@
     <div class="collapse navbar-collapse" id="defaultNavbar">
       <div class="navbar-nav">
         <a routerLinkActive="active" routerLink="home" class="nav-link">Home</a>
-        <a routerLinkActive="active" routerLink="categorias" class="nav-link">Categorias</a>
+      </div>
+      <div class="float-right" *ngIf="isAdmin">
+        <a routerLink="/admin"> Ir para Admin</a>
       </div>
     </div>
+
   </div>
+
 </nav>
 <div class="container mt-4">
   <router-outlet></router-outlet>

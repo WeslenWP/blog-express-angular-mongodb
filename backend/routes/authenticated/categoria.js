@@ -11,18 +11,21 @@ const errorMessage = {
   "500": { message: 'Houve um erro interno' }
 }
 
-// Endpoint para deletar tudo
-router.delete('/all', (req, res) => {
-  require('../../models/Postagem');
-  const Postagem = mongoose.model('postagens');
-  Categoria.deleteMany().then((_) => Postagem.deleteMany().then(() => res.status(200).send('Apagado')));
-});
 
 router.get('/', (req, res) => {
   Categoria.find().sort({ data: 'desc' })
     .then((categorias) => res.status(200).send(categorias))
     .catch((_) => res.status(500).send(errorMessage[500]));
 })
+
+router.use([require('../../middleware/authToken'), require('../../middleware/isAdm')]);
+
+// Endpoint para deletar tudo
+router.delete('/all', (req, res) => {
+  require('../../models/Postagem');
+  const Postagem = mongoose.model('postagens');
+  Categoria.deleteMany().then((_) => Postagem.deleteMany().then(() => res.status(200).send('Apagado')));
+});
 
 router.post('/', (req, res) => {
   let errors = new Object();

@@ -1,0 +1,49 @@
+<div class="container">
+  <div class=" position-fixed top-50 start-50 translate-middle text-center bg-light p-4 rounded shadow-sm fs-5"
+    style="min-width: 400px;">
+    <form (submit)="signIn()" [formGroup]="form">
+      <div class="mb-2">
+        <span class="fs-1">Blog <span class="text-success">Node.JS</span></span>
+      </div>
+      <div class="mt-3">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="email">Email: </label>
+          <input [ngClass]="form.controls['email'].touched && form.controls['email'].invalid ?'is-invalid':''"
+            formControlName="email" type="email" id="email" class="form-control" />
+          <div class="invalid-feedback fs-6">
+            {{ this.form.controls['email'].getError('invalid') ? 'Email não cadastrado' : 'Campo obrigatório'}}
+          </div>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="senha">Senha</label>
+          <input [ngClass]="form.controls['senha'].touched && form.controls['senha'].invalid ?'is-invalid':''"
+            formControlName='senha' type="password" id="senha" class="form-control" />
+          <div class="invalid-feedback fs-6">
+            {{ this.form.controls['senha'].getError('invalid') ? 'Senha incorreta' : 'Campo obrigatório'}}
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4 fs-5"
+          [disabled]="isLoading || form.invalid || form.pristine">
+          <ng-container *ngIf="!isLoading else loading">
+            Entrar
+          </ng-container>
+          <ng-template #loading>
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="visually-hidden">Carregando...</span>
+            </div>
+          </ng-template>
+        </button>
+
+        <!-- Register buttons -->
+        <div class="text-center fs-6">
+          <a>Cadastre-se</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

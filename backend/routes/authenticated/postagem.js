@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const mongoose = require('mongoose');
 
 require('../../models/Postagem');
@@ -10,6 +11,8 @@ const errorMessage = {
   "409": { message: "Já existe uma postagem com esse titulo" },
   "500": { message: 'Houve um erro interno' }
 }
+
+router.use([require('../../middleware/authToken'), require('../../middleware/isAdm')]);
 
 // Endpoint para deletar tudo
 router.delete('/all', (req, res) => {
@@ -136,5 +139,6 @@ router.delete('/:id', (req, res) => {
     .then((postagem) => postagem ? res.status(200).send({ message: `O post <b>${postagem.titulo}</b> foi excluido com sucesso` }) : res.status(404).send(errorMessage[404]))
     .catch((_) => res.status(500).send(errorMessage[500]))
 })
+
 
 module.exports = router

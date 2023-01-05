@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/core/services/categoria.service';
 import { PostagemService } from 'src/app/core/services/postagem.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { ICategoria } from 'src/app/core/types/categoria.types';
 import { IPostagem } from 'src/app/core/types/postagem.types';
 interface tab {
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor(private _postagemService: PostagemService, private _categoriaService: CategoriaService) { }
+  constructor(private _postagemService: PostagemService, private _categoriaService: CategoriaService, public user: UserService) { }
 
   ngOnInit(): void {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {

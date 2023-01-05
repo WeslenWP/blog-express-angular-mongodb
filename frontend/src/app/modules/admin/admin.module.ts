@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { PostagemListComponent } from './postagem/list/postagem-list.component';
@@ -8,6 +7,8 @@ import { PostagemEditComponent } from './postagem/edit/postagem-edit.component';
 import { ListCategoriaComponent } from './categoria/list/list-categoria.component';
 import { CategoriaAddComponent } from './categoria/add/categoria-add.component';
 import { CategoriaEditComponent } from './categoria/edit/categoria-edit.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastInterceptor } from 'src/app/core/interceptors/toast.interceptor';
 
 const adminRoute: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'postagens' },
@@ -57,5 +58,8 @@ const adminRoute: Routes = [
     SharedModule,
     RouterModule.forChild(adminRoute)
   ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ToastInterceptor, multi: true }
+  ]
 })
 export class AdminModule { }
