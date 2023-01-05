@@ -3,34 +3,21 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
-const session = require('express-session');
-const fs = require('fs')
 require('dotenv').config();
 
 /* Configurações */
 // Cors
 app.use(cors({
-  origin: process.env.ORIGIN
+  credentials: true,
+  origin: process.env.FRONTEND_URL
 }));
-
-// Sessão
-app.use(session({
-  secret: 'chaveultrasecreta',
-  resave: true,
-  saveUninitialized: true
-}));
-
-// Middleware
-app.use((req, res, next) => {
-  next();
-});
 
 //  Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Mongoose
-mongoose.connect(process.env.DB_URL)
+mongoose.connect(process.env.MONGODB_URL)
   .then(() => console.log('Banco conectado'))
   .catch((err) => console.log('Erro: \n' + err))
 
